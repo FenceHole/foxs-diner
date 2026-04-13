@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Fox's Diner"
+version = "1.0.0"
+id = "artifacts/foxs-diner"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 21560
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/foxs-diner run dev"
+
+[services.env]
+PORT = "21560"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/foxs-diner", "run", "build"]
+publicDir = "artifacts/foxs-diner/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
